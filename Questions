@@ -1,0 +1,34 @@
+1.	What’s your definition of integration test in an API context?
+2.	What’s an API ? List two types of APIs.
+3.	How do you define a microservice ?
+4.	How do you define NRT ?
+5.	List two CI tools and give their usefulness and a specificity.
+
+
+Tout d'abord, j'ai choisis de répondre aux questions dans le désordre, afin de suivre mon cheminement logique.
+
+2. Une API est une interface applicatif permettant à un requêteur d'interagir avec un programme.
+Dans le contexte de paris sportif, notre API sera une interface qui permettra à l'usager d'avoir accès aux évènements
+sportifs pour pouvoir miser dessus. Cette API dispose d'une liste d'actions prédéfinis. L'usager envoi une requête et reçoit
+uen réponse via notre API, traduisant par la même occasion les langages pour la compréhension des différents acteurs.
+
+API REST - Representational State Transfer - utilisant HTTP, et API SOAP - Simple Object Access Protocol - sont 2 types d'API
+
+3. Un microservice est le découpage d'un service global en plusieurs fonctionnalités gérées chacune de façon autonome. 
+Prenons un service global, comme un site de paris sportif par exemple. Ce service permet entre autre de visualiser un liste
+d'évènements sportifs, de parier dessus, de gérer son compte en ligne, de l'approvisionner, de virer son argent sur un compte
+bancaire...
+Autant de services pouvant être découper en plusieurs microservices autonomes permettant une meilleure maintenabilité.
+
+5. Dans le cadre de la maintenabilité de ces microservices, des outils d'intégration continue sont utilisés afin d'intégrer
+de façon continuelle des modifications apportées au code. Cela permet de pouvoir faire des tests rapidement après chaque 
+modification, de valider les changements ou d'y apporter des changements en cas d'erreur.
+Jenkins et GitLab sont deux outils d'intégration continue. Le premier est Open Source, le 2nd est gratuit payant pour les
+projets à but lucratif.
+
+4. Suite à ces changements, des TNR (Test de non régression) vont être effectué afin de vérifier qu'aucun effet de bord n'est
+détecté. Les TNR servent à vérifier qu'un changement effectué, au sein d'une fonctionnalité par exemple, ne créé pas de
+comportement indésirable sur une autre fonctionnalité (régression).
+
+1. Un test d'intégration, dans un contexte API, consiste à vérifier qu'une fonctionnalité par exemple, 
+communique bien avec les autres fonctionnalités sans créer d'anomalie.
