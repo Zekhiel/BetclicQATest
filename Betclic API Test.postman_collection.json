@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "a8dc9286-84bb-49ea-bf1f-a5e52b3e2e42",
+		"name": "Betclic API Test",
+		"description": "Automated tests for Betclic with Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MatchDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c60ea1b2-30f7-4e2c-a455-8a64576bfa56",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://offer.cdn.begmedia.com/api/pub/{{partEvent}}{{idMatch}}?application=1&countrycode=fr&language=fr&sitecode=frfr",
+					"protocol": "https",
+					"host": [
+						"offer",
+						"cdn",
+						"begmedia",
+						"com"
+					],
+					"path": [
+						"api",
+						"pub",
+						"{{partEvent}}{{idMatch}}"
+					],
+					"query": [
+						{
+							"key": "application",
+							"value": "1"
+						},
+						{
+							"key": "countrycode",
+							"value": "fr"
+						},
+						{
+							"key": "language",
+							"value": "fr"
+						},
+						{
+							"key": "sitecode",
+							"value": "frfr"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CompetitionMatches",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b2513fee-4f98-4762-87b0-639dea66690f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "450ef8a9-8392-4fbf-83ce-48b8645f967e",
+						"exec": [
+							"// Tri by id & name",
+							"pm.test(\"matches'id&name\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    let listIdName = [];",
+							"    let data = jsonData.unifiedEvents;",
+							"    for(i = 0; i < data.length ; i++) {",
+							"        listIdName.push([data[i].id, data[i].name]);",
+							"    }",
+							"    console.log(listIdName);",
+							"});",
+							"",
+							"",
+							"/* ",
+							"// Tri par id, name & markets",
+							"",
+							"pm.test(\"listMarkets2\", function () {",
+							"    let jsonData = pm.response.json().unifiedEvents;",
+							"    list = []",
+							"    jsonData.forEach((match) => {",
+							"        list.push({\"id\": match.id, \"name\": match.name, \"markets\": match.markets})",
+							"    })",
+							"    console.log(list)",
+							"});",
+							"*/",
+							"",
+							"// Présentation des odds par résultat des matchs triés par id & name",
+							"pm.test(\"Complete List Match with Odds\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    data = jsonData.unifiedEvents;",
+							"    list = [];",
+							"    data.forEach((t) => {",
+							"        tri = {\"id\": t.id, \"name\": t.name};",
+							"        t.markets.forEach((o) => {",
+							"            market = o.name;",
+							"            odds = [];",
+							"            o.selections.forEach((i) => {",
+							"                odds.push([i.name, i.odds]);",
+							"            });",
+							"            tri[market] = odds;",
+							"        });",
+							"        list.push(tri);",
+							"    });",
+							"    console.log(list)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://offer.cdn.begmedia.com/api/pub/{{partCompetition}}{{codeCompetition}}?application=1&countrycode=fr&language=fr&sitecode=frfr",
+					"protocol": "https",
+					"host": [
+						"offer",
+						"cdn",
+						"begmedia",
+						"com"
+					],
+					"path": [
+						"api",
+						"pub",
+						"{{partCompetition}}{{codeCompetition}}"
+					],
+					"query": [
+						{
+							"key": "application",
+							"value": "1"
+						},
+						{
+							"key": "countrycode",
+							"value": "fr"
+						},
+						{
+							"key": "language",
+							"value": "fr"
+						},
+						{
+							"key": "sitecode",
+							"value": "frfr"
+						}
+					]
+				},
+				"description": "See the tests results on the console"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
